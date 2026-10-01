@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SPARK The Palms - Fruit Frenzy</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #f7faf5, #edf4e8);
+    color: #26351d;
+}
+
+/* HEADER */
+
+.header {
+    background: white;
+    border-bottom: 6px solid #315b00;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    color: #6127a8;
+    font-size: 38px;
+}
+
+.header h1 span {
+    color: #315b00;
+}
+
+.header p {
+    margin: 8px 0 0;
+    font-weight: bold;
+    color: #555;
+}
+
+/* MAIN */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px;
+}
+
+/* HERO */
+
+.hero {
+    background: linear-gradient(135deg, #6127a8, #3c166f);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.hero h2 {
+    margin: 0;
+    font-size: 40px;
+}
+
+.hero p {
+    font-size: 18px;
+}
+
+/* CARDS */
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    color: #315b00;
+}
+
+/* FORM */
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccd8c4;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #6127a8;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* FRUIT REVEAL */
+
+.reveal {
+    text-align: center;
+    margin-top: 20px;
+    padding: 25px;
+    background: #f8f1ff;
+    border: 2px solid #d8c2f3;
+    border-radius: 15px;
+}
+
+.fruit {
+    font-size: 70px;
+    margin: 10px;
+}
+
+.points {
+    font-size: 38px;
+    font-weight: bold;
+    color: #6127a8;
+}
+
+.jackpot {
+    background: #fff5c9;
+    border: 2px solid #e7bd36;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* LEADERBOARD */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px;
+    border-bottom: 1px solid #e6ebe2;
+    text-align: left;
+}
+
+th {
+    background: #edf5e7;
+    color: #315b00;
+}
+
+.rank {
+    font-size: 22px;
+}
+
+/* TOP STORES */
+
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.store-card {
+    background: #f7faf5;
+    padding: 18px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.store-card strong {
+    display: block;
+    font-size: 25px;
+    color: #6127a8;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .store-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+        font-size: 30px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>
+        SPARK - <span>The Palms</span>
+    </h1>
+
+    <p>
+        🌴 #PositivelyPalms
+    </p>
+
+</div>
+
+
+<div class="container">
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h2>🍓 FRUIT FRENZY 🍓</h2>
+
+    <p>
+        Every sale could be your lucky fruit!
+    </p>
+
+</div>
+
+
+<!-- SALE ENTRY -->
+
+<div class="card">
+
+    <h2>🎲 Record a Sale</h2>
+
+    <label>Store</label>
+
+    <select id="store">
+
+        <option>Christchurch Airport</option>
+        <option>Blenheim</option>
+        <option>CBD</option>
+        <option>Greymouth</option>
+        <option>Hornby</option>
+        <option>Nelson</option>
+        <option>Northlink</option>
+        <option>Rangiora</option>
+        <option>Riccarton</option>
+        <option>Richmond</option>
+        <option>The Palms</option>
+
+    </select>
+
+
+    <label>Advisor</label>
+
+    <input
+        id="advisor"
+        type="text"
+        placeholder="Enter advisor name"
+    >
+
+
+    <label>Sale</label>
+
+    <input
+        id="sale"
+        type="text"
+        placeholder="Example: iPhone + Plan"
+    >
+
+
+    <button onclick="revealFruit()">
+
+        🎲 REVEAL MY FRUIT
+
+    </button>
+
+
+    <div id="reveal"></div>
+
+</div>
+
+
+<!-- JACKPOT -->
+
+<div class="card">
+
+    <h2>🍍 TODAY'S JACKPOT FRUIT</h2>
+
+    <div class="jackpot">
+
+        <div id="jackpotFruit"></div>
+
+        <p>
+            Find today's jackpot fruit and receive
+        </p>
+
+        <h2>
+            +100 BONUS POINTS 🔥
+        </h2>
+
+    </div>
+
+</div>
+
+
+<!-- DAILY LEADERBOARD -->
+
+<div class="card">
+
+    <h2>☀️ DAILY STORE LEADERBOARD</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Rank</th>
+                <th>Store</th>
+                <th>Points</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="leaderboard">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- TOP STORES -->
+
+<div class="card">
+
+    <h2>🌴 REGIONAL FRUIT FRENZY</h2>
+
+    <div class="store-grid" id="storeCards">
+
+    </div>
+
+</div>
+
+
+<!-- WEEKLY -->
+
+<div class="card">
+
+    <h2>🏆 WEEKLY LEADERBOARD</h2>
+
+    <p>
+        Weekly rankings will appear here once the
+        shared database is connected.
+    </p>
+
+</div>
+
+
+<!-- MONTHLY -->
+
+<div class="card">
+
+    <h2>📅 MONTHLY LEADERBOARD</h2>
+
+    <p>
+        Monthly rankings will appear here once the
+        shared database is connected.
+    </p>
+
+</div>
+
+
+<!-- TEAMS -->
+
+<div class="card">
+
+    <h2>💬 TEAMS MESSAGE</h2>
+
+    <p>
+        Your generated Teams message will appear here.
+    </p>
+
+    <textarea
+        id="teamsMessage"
+        style="width:100%;height:180px;padding:15px;border-radius:10px;"
+    ></textarea>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* FRUITS */
+
+const fruits = [
+
+    {
+        name: "🍒 Cherry",
+        points: 5
+    },
+
+    {
+        name: "🍎 Apple",
+        points: 10
+    },
+
+    {
+        name: "🍊 Orange",
+        points: 15
+    },
+
+    {
+        name: "🍋 Lemon",
+        points: 20
+    },
+
+    {
+        name: "🍉 Watermelon",
+        points: 25
+    },
+
+    {
+        name: "🍇 Grapes",
+        points: 30
+    },
+
+    {
+        name: "🥝 Kiwi",
+        points: 35
+    },
+
+    {
+        name: "🍍 Pineapple",
+        points: 40
+    },
+
+    {
+        name: "🥭 Mango",
+        points: 50
+    },
+
+    {
+        name: "🍓 Strawberry",
+        points: 60
+    }
+
+];
+
+
+/* STORES */
+
+const stores = [
+
+    "Christchurch Airport",
+    "Blenheim",
+    "CBD",
+    "Greymouth",
+    "Hornby",
+    "Nelson",
+    "Northlink",
+    "Rangiora",
+    "Riccarton",
+    "Richmond",
+    "The Palms"
+
+];
+
+
+/* SCORES */
+
+let scores = {};
+
+
+/* CREATE STORES */
+
+stores.forEach(function(store) {
+
+    scores[store] = 0;
+
+});
+
+
+/* RANDOM JACKPOT */
+
+let jackpot =
+    fruits[Math.floor(Math.random() * fruits.length)];
+
+
+/* SHOW JACKPOT */
+
+document.getElementById("jackpotFruit").innerHTML =
+
+    "🍍 Today's Jackpot Fruit:<br><br>" +
+
+    "<span style='font-size:45px'>" +
+
+    jackpot.name +
+
+    "</span>";
+
+
+/* SALE NUMBER */
+
+let saleNumber = 0;
+
+
+/* REVEAL FRUIT */
+
+function revealFruit() {
+
+    let store =
+        document.getElementById("store").value;
+
+    let advisor =
+        document.getElementById("advisor").value;
+
+    let sale =
+        document.getElementById("sale").value;
+
+
+    if (advisor === "") {
+
+        alert("Please enter the advisor name.");
+
+        return;
+
+    }
+
+
+    saleNumber++;
+
+
+    /* RANDOM FRUIT */
+
+    let fruit =
+        fruits[Math.floor(Math.random() * fruits.length)];
+
+
+    let points = fruit.points;
+
+
+    /* JACKPOT */
+
+    let jackpotBonus = 0;
+
+    if (fruit.name === jackpot.name) {
+
+        jackpotBonus = 100;
+
+        points += 100;
+
+    }
+
+
+    /* ADD SCORE */
+
+    scores[store] += points;
+
+
+    /* SHOW RESULT */
+
+    document.getElementById("reveal").innerHTML =
+
+        "<div class='reveal'>" +
+
+        "<div>SALE #" +
+        saleNumber +
+        "</div>" +
+
+        "<div class='fruit'>" +
+        fruit.name +
+        "</div>" +
+
+        "<div class='points'>+" +
+        points +
+        " POINTS</div>" +
+
+        (jackpotBonus > 0
+
+        ?
+
+        "<h2>🚨 JACKPOT! 🚨</h2>" +
+        "<p>+100 BONUS POINTS!</p>"
+
+        :
+
+        "") +
+
+        "</div>";
+
+
+    /* TEAMS MESSAGE */
+
+    document.getElementById("teamsMessage").value =
+
+        "🍓 FRUIT FRENZY ALERT! 🍓\n\n" +
+
+        "SALE #" +
+        saleNumber +
+        "\n\n" +
+
+        "🏪 Store: " +
+        store +
+        "\n" +
+
+        "👤 Advisor: " +
+        advisor +
+        "\n\n" +
+
+        "🎲 Mystery Fruit: " +
+        fruit.name +
+        "\n\n" +
+
+        "⭐ +" +
+        points +
+        " POINTS" +
+
+        (jackpotBonus > 0
+
+        ?
+
+        "\n\n🚨 JACKPOT! +100 BONUS!"
+
+        :
+
+        "") +
+
+        "\n\n#PositivelyPalms #FruitFrenzy";
+
+
+    updateLeaderboard();
+
+}
+
+
+/* LEADERBOARD */
+
+function updateLeaderboard() {
+
+    let sorted =
+        Object.entries(scores)
+        .sort(function(a,b) {
+
+            return b[1] - a[1];
+
+        });
+
+
+    let html = "";
+
+
+    sorted.forEach(function(item,index) {
+
+        let medal = "";
+
+        if (index === 0) medal = "🥇";
+
+        if (index === 1) medal = "🥈";
+
+        if (index === 2) medal = "🥉";
+
+
+        html +=
+
+            "<tr>" +
+
+            "<td class='rank'>" +
+            medal +
+            " " +
+            (index + 1) +
+            "</td>" +
+
+            "<td>" +
+            item[0] +
+            "</td>" +
+
+            "<td><strong>" +
+            item[1] +
+            "</strong></td>" +
+
+            "</tr>";
+
+    });
+
+
+    document.getElementById("leaderboard").innerHTML =
+        html;
+
+
+    /* STORE CARDS */
+
+    let cards = "";
+
+
+    sorted.slice(0,3).forEach(function(item,index) {
+
+        let medal = ["🥇","🥈","🥉"][index];
+
+
+        cards +=
+
+            "<div class='store-card'>" +
+
+            "<div style='font-size:35px'>" +
+            medal +
+            "</div>" +
+
+            "<strong>" +
+            item[1] +
+            "</strong>" +
+
+            "<div>" +
+            item[0] +
+            "</div>" +
+
+            "</div>";
+
+    });
+
+
+    document.getElementById("storeCards").innerHTML =
+        cards;
+
+}
+
+
+/* START */
+
+updateLeaderboard();
+
+</script>
+
+</body>
+</html>
